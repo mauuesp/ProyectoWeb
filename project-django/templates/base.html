@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sistema Django</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+  background: #f0edff;
+  font-family: 'Fredoka', sans-serif;
+  min-height: 100vh;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  background: #6c5ce7;
+  border-bottom: 3px solid #1a1a1a;
+  padding: 12px 30px;
+}
+
+.navbar-brand {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffe600 !important;
+  letter-spacing: 1px;
+}
+
+.navbar .btn-light {
+  border: 2px solid #1a1a1a;
+  font-weight: 600;
+  border-radius: 30px;
+  box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+.navbar .btn-light:hover {
+  box-shadow: 1px 1px 0 #1a1a1a;
+  transform: translate(2px, 2px);
+}
+
+.navbar .btn-warning {
+  border: 2px solid #1a1a1a;
+  font-weight: 600;
+  border-radius: 30px;
+  box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+.navbar .btn-warning:hover {
+  box-shadow: 1px 1px 0 #1a1a1a;
+  transform: translate(2px, 2px);
+}
+
+/* ===== Contenedor ===== */
+.main-container {
+  margin-top: 60px;
+}
+
+/* ===== Tarjetas ===== */
+.card {
+  background: #fff;
+  border: 3px solid #1a1a1a !important;
+  border-radius: 16px !important;
+  box-shadow: 6px 6px 0 #1a1a1a;
+}
+
+/* ===== Card Header ===== */
+.card-header {
+  background: #6c5ce7;
+  color: white;
+  border: none !important;
+  border-bottom: 3px solid #1a1a1a !important;
+  border-radius: 13px 13px 0 0 !important;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* ===== Labels ===== */
+label {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* ===== Inputs ===== */
+input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid #1a1a1a;
+  margin-top: 4px;
+  margin-bottom: 14px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 16px;
+  box-shadow: 3px 3px 0 #1a1a1a;
+  outline: none;
+  transition: box-shadow 0.1s, transform 0.1s;
+}
+
+input:focus {
+  border-color: #6c5ce7;
+  box-shadow: 3px 3px 0 #6c5ce7;
+  transform: translate(-1px, -1px);
+}
+
+/* ===== Botones ===== */
+.btn-primary {
+  background: #ffe600 !important;
+  border: 2px solid #1a1a1a !important;
+  color: #1a1a1a !important;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 30px !important;
+  padding: 8px 28px;
+  box-shadow: 4px 4px 0 #1a1a1a;
+  transition: all 0.1s;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+  background: #ff9f43 !important;
+  box-shadow: 2px 2px 0 #1a1a1a;
+  transform: translate(2px, 2px);
+}
+
+/* ===== Links ===== */
+a {
+  color: #6c5ce7;
+  font-weight: 600;
+}
+
+a:hover {
+  color: #4a3db5;
+}
+
+/* ===== Títulos ===== */
+h2 {
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+
+    <a class="navbar-brand" href="/cliente/">
+      Sistema Django
+    </a>
+
+    <div>
+      {% if user.is_authenticated %}
+        <span class="text-white me-3">Hola {{ user.username }}</span>
+        <form method="post" action="/logout/" style="display:inline;">
+          {% csrf_token %}
+          <button class="btn btn-light">Cerrar sesión</button>
+        </form>
+      {% else %}
+        <a class="btn btn-light me-2" href="{% url 'login' %}">Login</a>
+        <a class="btn btn-warning" href="{% url 'register' %}">Registro</a>
+      {% endif %}
+    </div>
+
+  </div>
+</nav>
+
+<div class="container main-container">
+  {% block content %}
+  {% endblock %}
+</div>
+
+</body>
+</html>
